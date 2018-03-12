@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="description" content=""/>
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="MobileOptimized" content="320"/>
+    <meta name="viewport"
+          content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>FOB API project</title>
+    <link href="http://fonts.googleapis.com/css?family=Raleway:700,300" rel="stylesheet"
+          type="text/css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/prettify.css"/>
+</head>
+<body>
+<nav>
+    <div class="container">
+        <h1>
+            <img class="company_logo" src="images/fob_logo.png"/>
+        </h1>
+
+        <div id="menu">
+            <ul class="toplinks">
+                <li><a href="http://www.fob-solutions.com/">FOB Solutions Website </a></li>
+            </ul>
+        </div>
+        <a id="menu-toggle" href="#" class=" ">&#9776;</a></div>
+</nav>
+<header>
+    <div class="container">
+        <h2 class="docs-header"> Restaurant API</h2>
+    </div>
+</header>
+<section>
+    <div class="container">
+        <ul class="docs-nav" id="menu-left">
+            <li><a href="#welcome" id="menu-item-welcome" class=" ">Welcome</a></li>
+            <li><a href="#why" id="menu-item-benefits" class=" ">Why</a></li>
+            <li><a href="#features" id="menu-item-features" class=" ">Features</a></li>
+        </ul>
+        <div class="docs-content">
+
+            <h3 id="welcome"> Welcome</h3>
+            <p>I'm glad you have found your way here!</p>
+            <p>This project is created to give you some examples of API testing and API development.</p>
+
+            <h3 id="why">Why are we doing this?</h3>
+            <p>Nowadays clients are more and more in the mind that manual testers should have some experience in
+                technical testing, including API testing.</p>
+            <p>We are trying to spread the word and find new quality assurance enthusiasts or back-end developers.</p>
+
+            <h3 id="features"> What can be done with this?</h3>
+            <p>Right now we have created API which allows you to test your knowledge about API testing.</p>
+
+            <h4>Root Endpoint</h4>
+            <pre class="prettyprint lang-html">
+    http://localhost:8080/
+            </pre>
+
+            <h4>Authentication</h4>
+            <p>API is using sessionId parameter in header requests for authentication. You will find the sessionId token in login responses.</p>
+
+            <b>Register new user</b>
+
+            <pre class="prettyprint">
+    Request type: POST
+
+    http://localhost:8080/user/register
+
+    Headers:
+        sessionId
+
+    Parameters:
+        username
+        password
+        password2
+        role
+
+
+    Valid response:
+        {
+            "errorMessage": "",
+            "response": {
+                "id": "5aa66c0b76660a662e7acbc5",
+                "username": "Marko",
+                "role": "WAITER",
+                "createdAt": [
+                    2018,
+                    3,
+                    12
+                ]
+            },
+            "error": false
+        }
+             </pre>
+
+            <b>Login</b>
+
+            <pre class="prettyprint">
+
+    Request type: POST
+    http://localhost:8080/user/login
+
+    Parameters:
+        username
+        password
+
+    Valid response:
+
+        {
+            "errorMessage": "",
+            "response": {
+                "id": "5aa66bf776660a662e7acbc4",
+                "userId": "5aa66bf176660a662e7acb9d",
+                "token": "34a7c9053d2b40a",
+                "createdAt": [
+                    2018,
+                    3,
+                    12
+                ],
+                "expiresAt": [
+                    2018,
+                    3,
+                    13
+                ]
+            },
+            "error": false
+        }
+             </pre>
+
+            <b>Create new customer</b>
+
+            <pre class="prettyprint">
+    Request type: POST
+    http://localhost:8080/customer/create
+
+    Headers:
+        sessionId
+    Parameters:
+        name
+
+    Valid response:
+
+        {
+            "errorMessage": "",
+            "response": {
+                "id": "5aa66c1876660a662e7acbc7",
+                "name": "Customer",
+                "hasMenu": false,
+                "waiterId": null,
+                "orderId": null,
+                "createdAt": [
+                    2018,
+                    3,
+                    12
+                ]
+            },
+            "error": false
+        }
+             </pre>
+
+            <b>Take order from customer</b>
+
+            <pre class="prettyprint">
+    Request type: POST
+    http://localhost:8080/customer/update
+
+    Headers:
+        sessionId
+    Parameters:
+        id
+        hasMenu
+        name
+        waiterId
+
+    Valid response:
+
+        {
+            "errorMessage": "",
+            "response": {
+                "id": "5aa66c1876660a662e7acbc7",
+                "name": "Customer",
+                "hasMenu": true,
+                "waiterId": "5aa66c0b76660a662e7acbc5",
+                "orderId": "5aa66c2f76660a662e7acbc8",
+                "createdAt": [
+                    2018,
+                    3,
+                    12
+                ]
+            },
+            "error": false
+        }
+             </pre>
+
+            <b>Change order from customer</b>
+
+            <pre class="prettyprint">
+    Request type: POST
+    http://localhost:8080/order/update
+
+    Headers:
+        sessionId
+    Parameters:
+        id
+        status
+        order
+
+    Valid response:
+
+        {
+            "errorMessage": "",
+            "response": {
+                "id": "5aa697dc76660a75f75d9612",
+                "status": "WAITING",
+                "customerId": "5aa697b376660a75f75d9611",
+                "waiterId": "5aa697a376660a75f75d960f",
+                "items": [
+                    {
+                        "id": "5aa6643e76660a62306008f8",
+                        "name": "STICK ICE CREAM MADE OF SPICED BALTIC SPRATS, SOFT EGG, FRESH CUCUMBER AND HERB SALAD WITH CREAMY DILL MILK",
+                        "price": 8,
+                        "createdAt": [
+                            2018,
+                            3,
+                            12
+                        ]
+                    }
+                ]
+            },
+            "error": false
+        }
+             </pre>
+
+            <b>Get menu</b>
+            <pre class="prettyprint">
+    Request type: GET
+    http://localhost:8080/menu
+            </pre>
+
+            <b>Get orders</b>
+            <pre class="prettyprint">
+    Request type: GET
+    http://localhost:8080/orders
+
+    Headers:
+        sessionId
+
+    Valid response:
+
+        {
+            "errorMessage": "",
+            "response": [
+                {
+                    "id": "5aa697dc76660a75f75d9612",
+                    "status": "WAITING",
+                    "customerId": "5aa697b376660a75f75d9611",
+                    "waiterId": "5aa697a376660a75f75d960f",
+                    "items": [
+                        {
+                            "id": "5aa6643e76660a62306008f8",
+                            "name": "STICK ICE CREAM MADE OF SPICED BALTIC SPRATS, SOFT EGG, FRESH CUCUMBER AND HERB SALAD WITH CREAMY DILL MILK",
+                            "price": 8,
+                            "createdAt": [
+                                2018,
+                                3,
+                                12
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "error": false
+        }
+            </pre>
+        </div>
+    </div>
+</section>
+<footer>
+    <div class="container">
+        <p> &copy; 2018 fob-solutions.com </p>
+    </div>
+</footer>
+<script src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/prettify/prettify.js"></script>
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=css&amp;skin=sunburst"></script>
+<script src="js/layout.js"></script>
+<script src="js/jquery.localscroll-1.2.7.js" type="text/javascript"></script>
+<script src="js/jquery.scrollTo-1.4.3.1.js" type="text/javascript"></script>
+</body>
+</html>
