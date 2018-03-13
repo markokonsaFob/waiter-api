@@ -2,7 +2,7 @@ package ee.fobsolutions.waiter.models;
 
 import org.springframework.data.annotation.Id;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * Created by FOB Solutions
@@ -15,11 +15,11 @@ public class Customer {
     private boolean hasMenu;
     private String waiterId;
     private String orderId;
-    private LocalDate createdAt;
+    private Date createdAt;
 
     public Customer(String name) {
         this.name = name;
-        this.createdAt = LocalDate.now();
+        this.createdAt = new Date();
     }
 
     public String getId() {
@@ -38,11 +38,11 @@ public class Customer {
         this.name = name;
     }
 
-    public LocalDate getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 

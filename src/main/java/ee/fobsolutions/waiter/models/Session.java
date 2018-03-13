@@ -3,8 +3,8 @@ package ee.fobsolutions.waiter.models;
 import org.springframework.data.annotation.Id;
 
 import java.security.SecureRandom;
-import java.time.LocalDate;
-import java.util.Arrays;
+import java.time.Duration;
+import java.util.Date;
 
 /**
  * Created by FOB Solutions
@@ -15,14 +15,14 @@ public class Session {
     public String id;
     private String userId;
     private String token;
-    private LocalDate createdAt;
-    private LocalDate expiresAt;
+    private Date createdAt;
+    private Date expiresAt;
 
     public Session(String userId) {
         this.userId = userId;
-        this.createdAt = LocalDate.now();
+        this.createdAt = new Date();
         this.token = generateToken();
-        this.expiresAt = createdAt.plusDays(1);
+        this.expiresAt = Date.from(createdAt.toInstant().plus(Duration.ofHours(8)));
     }
 
     public String getId() {
@@ -41,19 +41,19 @@ public class Session {
         this.userId = userId;
     }
 
-    public LocalDate getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDate getExpiresAt() {
+    public Date getExpiresAt() {
         return expiresAt;
     }
 
-    public void setExpiresAt(LocalDate expiresAt) {
+    public void setExpiresAt(Date expiresAt) {
         this.expiresAt = expiresAt;
     }
 

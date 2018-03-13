@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
-import java.util.List;
+import java.time.Duration;
+import java.util.Date;
 
 /**
  * Created by FOB Solutions
@@ -59,7 +59,7 @@ public class AuthenticationService {
     public Session logout(HttpServletRequest request) {
         Session session = getSession(request);
         if (session != null) {
-            session.setExpiresAt(LocalDate.now().minusDays(1));
+            session.setExpiresAt(Date.from(new Date().toInstant().minus(Duration.ofSeconds(1))));
             sessionRepository.save(session);
         }
         return session;
@@ -92,7 +92,7 @@ public class AuthenticationService {
         boolean isLoggedIn = false;
         try {
             Session session = getSession(request);
-            isLoggedIn = (session != null && session.getExpiresAt().isAfter(LocalDate.now()));
+            isLoggedIn = (session != null && session.getExpiresAt().after(new Date()));
         } catch (Exception ignored) {
 
         }

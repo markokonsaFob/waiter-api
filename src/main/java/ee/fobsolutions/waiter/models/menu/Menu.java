@@ -2,8 +2,8 @@ package ee.fobsolutions.waiter.models.menu;
 
 import org.springframework.data.annotation.Id;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,11 +15,11 @@ public class Menu {
     public String id;
     private String name;
     private List<MenuItem> menuItems;
-    private LocalDate createdAt;
+    private Date createdAt;
 
     public Menu(String name) {
         this.name = name;
-        this.createdAt = LocalDate.now();
+        this.createdAt = new Date();
         this.menuItems = new ArrayList<>();
     }
 
@@ -51,11 +51,11 @@ public class Menu {
         this.menuItems = menuItems;
     }
 
-    public LocalDate getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
