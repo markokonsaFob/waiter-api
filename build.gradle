@@ -39,3 +39,13 @@ mongo {
     port '27017'
     logging 'console'
 }
+
+task(waiter, dependsOn: 'classes', type: JavaExec) {
+    doFirst {
+        tasks.startMongoDb.execute()
+    }
+
+    main = 'ee.fobsolutions.waiter.Application'
+    classpath = sourceSets.main.runtimeClasspath
+    args 'waiter'
+}
