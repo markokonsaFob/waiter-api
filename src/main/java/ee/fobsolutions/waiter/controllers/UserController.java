@@ -1,5 +1,6 @@
 package ee.fobsolutions.waiter.controllers;
 
+import ee.fobsolutions.waiter.models.Session;
 import ee.fobsolutions.waiter.models.User;
 import ee.fobsolutions.waiter.models.core.Response;
 import ee.fobsolutions.waiter.service.AuthenticationService;
@@ -25,7 +26,13 @@ public class UserController {
             @RequestParam("username") String username,
             @RequestParam("password") String password
     ) {
-        return new Response(authenticationService.authenticate(username, password, request));
+        Session session = authenticationService.authenticate(username, password, request);
+
+        if (session != null) {
+            return new Response(authenticationService.authenticate(username, password, request));
+        }
+
+        return new Response("Invalid login credentials!");
     }
 
     @RequestMapping(value = "/user/logout", method = RequestMethod.POST)
